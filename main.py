@@ -5,14 +5,14 @@ from datetime import datetime
 
 load_dotenv()
 # print(os.getenv("TOKEN"))
-name = "kirolos"
+USER = "kirolosyassa"
 
 pixela_url = "http://pixe.la"
 pixela_endpoint = "https://pixe.la/v1/users"
 
 parameters = {
     "token":os.getenv("TOKEN"),
-    "username":name,
+    "username":USER,
     "agreeTermsOfService":"yes",
     "notMinor":"yes"
     }
@@ -20,43 +20,41 @@ parameters = {
 # response = requests.post(url=pixela_endpoint, json=parameters)
 # print(response.text)
 
-graph_endpoint = f"https://pixe.la/v1/users/{name}/graphs"
+graph_endpoint = f"{pixela_url}/v1/users/{USER}/graphs"
 
-headers = {
+pixel_header = {
     "X-USER-TOKEN":os.getenv("TOKEN"),
 }
-print(os.getenv("TOKEN"))
 
-graph_parameters = {"id":"graph1",
-                    "name":"Code Python",
+
+graph_parameters = {"id":"read_graph",
+                    "name":"Read Book",
                     "unit":"commit",
                     "type":"int",
-                    "color":"ichou",
-                    "timezone":"Egypt",
-                    "isSecret":True,
-                    "publishOptionalData":True}
+                    "color":"ichou",}
 
-# response = requests.post(url=graph_endpoint, json=graph_parameters, headers=headers)
-# print(response.text)
+response = requests.post(url=graph_endpoint, json=graph_parameters, headers=pixel_header)
+print(response.text)
 
-# Get My graph
-get_graph_url = f"https://pixe.la/v1/users/{name}/graphs/{graph_parameters['id']}.html"
+# # Get My graph
+# get_graph_url = f"{pixela_url}/v1/users/{USER}/graphs/{graph_parameters['id']}.html"
 
 # response = requests.get(url=get_graph_url)
 # print(response.url)
 
 # Post to graph
 
-post_to_graph_endpoint = f"{pixela_url}/v1/users/{name}/graphs/{graph_parameters['id']}/"
-print(post_to_graph_endpoint)
+# post_to_graph_endpoint = f"{pixela_url}/v1/users/{USER}/graphs/{graph_parameters['id']}/"
+# print(post_to_graph_endpoint)
 date_time = datetime.now()
 
 today = date_time.strftime("%Y%m%d")
-print(today)
+# print(today)
 
 pixel_data = {
     "date": today,
-    "quantity": "6.2",}
+    "quantity": "2",
+    }
 
-response_posting_to_graph = requests.post(url=post_to_graph_endpoint, json=pixel_data, headers=headers)
-print(response_posting_to_graph)
+# response_posting_to_graph = requests.post(url=post_to_graph_endpoint, json=pixel_data, headers=pixel_header)
+# print(response_posting_to_graph)
